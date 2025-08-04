@@ -27,15 +27,15 @@ function NavBar() {
           >
             Report Issue
           </Link>
-          <a href="#features" className="hover:text-blue-700 transition">
+          <Link to={"/feed"} className="hover:text-blue-700 transition">
             Feed
-          </a>
-          <a href="#about" className="hover:text-blue-700 transition">
+          </Link>
+          <Link to={"/about"} className="hover:text-blue-700 transition">
             About
-          </a>
-          <a href="#login" className="hover:text-blue-700 transition">
+          </Link>
+          <Link to={"/login"} className="hover:text-blue-700 transition">
             Login
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -58,34 +58,34 @@ function NavBar() {
             className="fixed top-16 right-0 w-3/4 h-[calc(100%-4rem)] bg-white shadow-lg z-40 md:hidden"
           >
             <div className="p-6 flex flex-col gap-6 text-gray-800 font-semibold">
-              <a
+              <Link
+                to={"/"}
                 onClick={toggleMenu}
-                href="#home"
                 className="hover:text-blue-700"
               >
                 Home
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/feed"}
                 onClick={toggleMenu}
-                href="#features"
                 className="hover:text-blue-700"
               >
-                Features
-              </a>
-              <a
+                Feed
+              </Link>
+              <Link
+                to={"/about"}
                 onClick={toggleMenu}
-                href="#about"
                 className="hover:text-blue-700"
               >
                 About
-              </a>
-              <a
+              </Link>
+              <Link
+                to={"/login"}
                 onClick={toggleMenu}
-                href="#login"
                 className="hover:text-blue-700"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
