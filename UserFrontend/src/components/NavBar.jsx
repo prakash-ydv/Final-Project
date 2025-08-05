@@ -27,6 +27,9 @@ function NavBar() {
           >
             Report Issue
           </Link>
+          <Link to={"/"} className="hover:text-blue-700 transition">
+            Home
+          </Link>
           <Link to={"/feed"} className="hover:text-blue-700 transition">
             Feed
           </Link>
