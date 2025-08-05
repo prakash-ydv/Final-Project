@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import HeroStats from "../components/HeroStats";
 import HeroIntro from "../components/HeroIntro";
 import IssueCard from "../components/IssueCard";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 function HomePage() {
+  const { userLocation } = useUser;
+  useEffect(() => {
+    if (!userLocation) return;
+    console.log(userLocation);
+  }, [userLocation]);
+
   return (
     <div>
       <NavBar />
