@@ -1,116 +1,194 @@
-import React, { useState } from "react";
-
-const categories = [
-  "Pothole",
-  "Garbage",
-  "Streetlight",
-  "Water Leak",
-  "Noise",
-  "Other",
-];
+import React, { useState, useEffect } from "react";
+import { FiUploadCloud, FiMapPin, FiSend } from "react-icons/fi";
 
 function ReportIssueForm() {
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const categories = [
+    "Pothole",
+    "Garbage",
+    "Streetlight",
+    "Water Leak",
+    "Noise",
+    "Other",
+  ];
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const toggleCategory = (category) => {
-    setSelectedCategories(() => category);
+  const [location, setLocation] = useState("Fetching location...");
+  const [locationExtra, setLocationExtra] = useState("");
+  const [locationError, setLocationError] = useState("");
+
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
+  const fetchLocation = () => {
+    setLocation("Fetching location...");
+    setLocationError("");
+
+    if (!navigator.geolocation) {
+      setLocation("Geolocation not supported.");
+      setLocationError("Your browser does not support location services.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocation(
+          `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`
+        );
+      },
+      (error) => {
+        if (error.code === error.PERMISSION_DENIED) {
+          setLocation("Permission denied.");
+          setLocationError(
+            "Location access denied. Please enable it from your browser settings."
+          );
+        } else if (error.code === error.POSITION_UNAVAILABLE) {
+          setLocation("Location unavailable.");
+          setLocationError("Unable to determine your location.");
+        } else if (error.code === error.TIMEOUT) {
+          setLocation("Request timed out.");
+          setLocationError("Fetching location timed out. Try again.");
+        } else {
+          setLocation("Location error.");
+          setLocationError("An unknown error occurred.");
+        }
+      }
+    );
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setPreviewImage(URL.createObjectURL(file));
-    }
+    if (file) setPreview(URL.createObjectURL(file));
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-10 px-5 py-8 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold text-center mb-2"> Report an Issue</h1>
-      <p className="text-center text-gray-600 mb-6">
-        Help improve your community by reporting local problems
-      </p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white p-6 md:p-10 rounded-xl shadow-lg w-full max-w-xl">
+        <h1 className="text-2xl font-bold text-center mb-1">Report an Issue</h1>
+        <p className="text-center text-gray-500 mb-6">
+          Help improve your city by reporting local problems
+        </p>
 
-      <form className="flex flex-col gap-6">
-        {/* Image Upload */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Upload Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="border p-2 rounded"
-          />
-
-          {/* Preview Image */}
-          {previewImage && (
-            <div className="mt-2">
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="w-full max-h-64 object-cover rounded-md border"
+        <form className="space-y-6">
+          {/* Image Upload Section */}
+          <div>
+            <label className="text-base font-medium flex items-center gap-2 mb-2">
+              <FiUploadCloud className="text-xl" />
+              Upload Issue Photo
+            </label>
+            <div
+              className="border border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400"
+              onClick={() => document.getElementById("fileInput").click()}
+            >
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="mx-auto h-48 object-contain"
+                />
+              ) : (
+                <>
+                  <FiUploadCloud className="text-4xl mx-auto text-gray-400 mb-2" />
+                  <p className="text-gray-500 mb-2">
+                    Click to upload or drag and drop
+                  </p>
+                  <span className="inline-block bg-gray-100 px-3 py-1 rounded text-sm text-gray-700">
+                    Choose File
+                  </span>
+                </>
+              )}
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={handleImageChange}
               />
             </div>
-          )}
-        </div>
-
-        {/* Location Input */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Location</label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Enter location manually or fetch"
-              className="flex-1 border p-2 rounded"
-            />
-            <button
-              type="button"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              Fetch
-            </button>
           </div>
-        </div>
 
-        {/* Description */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Additional Details</label>
-          <textarea
-            rows="4"
-            placeholder="Provide additional details about the issue..."
-            className="border p-2 rounded resize-none"
-          />
-        </div>
-
-        {/* Category Selection */}
-        <div className="flex flex-col gap-2">
-          <label className="font-medium">Select Categories</label>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
+          {/* Auto-Fetched Location */}
+          <div>
+            <label className="block font-medium mb-1">Your Location</label>
+            <div className="flex items-center border rounded-lg overflow-hidden">
+              <input
+                type="text"
+                value={location}
+                readOnly
+                className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 outline-none"
+              />
               <button
                 type="button"
-                key={cat}
-                onClick={() => toggleCategory(cat)}
-                className={`px-4 py-1 rounded-full border ${
-                  selectedCategories.includes(cat)
-                    ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-700"
-                }`}
+                onClick={fetchLocation}
+                className="px-4 text-blue-600 hover:text-blue-800"
+                title="Refresh location"
               >
-                {cat}
+                <FiMapPin size={20} />
               </button>
-            ))}
+            </div>
+            {locationError && (
+              <p className="text-sm text-red-600 mt-1">{locationError}</p>
+            )}
           </div>
-        </div>
+          {/* Additional Location Info */}
+          <div className="mt-4">
+            <label className="block font-medium mb-1">Additional Info</label>
+            <input
+              type="text"
+              required
+              placeholder="e.g., Near temple, beside post office"
+              value={locationExtra}
+              onChange={(e) => setLocationExtra(e.target.value)}
+              className="w-full border rounded-lg px-4 py-2 outline-none"
+            />
+          </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          className="bg-green-600 text-white py-2 rounded hover:bg-green-700"
-        >
-          Submit Report
-        </button>
-      </form>
+          {/* Description */}
+          <div>
+            <label className="block font-medium mb-1">
+              Description <span className="text-gray-400">(Optional)</span>
+            </label>
+            <textarea
+              placeholder="Provide additional details about the issue..."
+              rows="4"
+              className="w-full border rounded-lg p-3 outline-none resize-none"
+            />
+          </div>
+
+          {/* Category Selection (Single Select) */}
+          <div>
+            <label className="block font-medium mb-2">Issue Category</label>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-1 rounded-full border transition ${
+                    selectedCategory === cat
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+          >
+            <FiSend />
+            Submit Report
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
