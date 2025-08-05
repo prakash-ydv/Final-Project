@@ -58,7 +58,7 @@ function NavBar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3 }}
-            className="fixed top-16 right-0 w-3/4 h-[calc(100%-4rem)] bg-white shadow-lg z-40 md:hidden"
+            className="fixed top-16 right-0 w-3/4 h-[calc(100%-4rem)] bg-white shadow-lg z-9999 md:hidden"
           >
             <div className="p-6 flex flex-col gap-6 text-gray-800 font-semibold">
               <Link
