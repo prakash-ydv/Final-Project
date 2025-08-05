@@ -11,7 +11,7 @@ function IssueCard() {
         />
       </div>
       {/* category */}
-      <span className="absolute text-center w-22 top-2 left-2 bg-blue-500 rounded-2xl px-1 text-xs text-white">
+      <span className="absolute text-center w-22 top-2 left-2 bg-blue-500 rounded-2xl p-1 text-xs text-white">
         Electricity
       </span>
       <div className="p-4 flex flex-col gap-2">
