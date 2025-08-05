@@ -74,7 +74,7 @@ function FeedPage() {
           <h1 className="text-2xl font-semibold text-gray-800">
             Issue Locations
           </h1>
-          {userLocation ? (
+          {true ? ( //user location dalke validate karna haii
             <MapComponent
               reports={issueReports}
               location={{
