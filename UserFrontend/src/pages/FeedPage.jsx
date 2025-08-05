@@ -78,8 +78,8 @@ function FeedPage() {
             <MapComponent
               reports={issueReports}
               location={{
-                latitude: userLocation.latitude,
-                longitude: userLocation.longitude,
+                latitude: 21.7878778, //userLocation.latitude,
+                longitude: 73.4545454 //userLocation.longitude,
               }}
             />
           ) : (
