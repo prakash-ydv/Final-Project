@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="w-full bg-gradient-to-r from-blue-700 to-purple-700 text-white py-10 px-6 rounded-t-3xl">
+    <footer className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-10 px-6 rounded-t-3xl">
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-4">
         <h2 className="text-2xl sm:text-3xl font-bold">
           Your City. Your Voice. Your Power.
