@@ -5,7 +5,7 @@ function IssueCard() {
     <div className="flex flex-col w-full sm:w-[300px] md:w-[350px] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer relative">
       <div className="h-48 overflow-hidden">
         <img
-          src="https://info.link-labs.com/hubfs/Imported_Blog_Media/8565649327_5a5130206c_b.jpg?t=1488213105988"
+          src="https://c8.alamy.com/comp/S12GD5/potholes-filled-with-muddy-water-on-a-lesser-used-highway-S12GD5.jpg"
           alt="Issue"
           className="object-cover w-full h-full"
         />

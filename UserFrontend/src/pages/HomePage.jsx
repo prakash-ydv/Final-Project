@@ -22,7 +22,7 @@ function HomePage() {
           <IssueCard />
         </div>
       </div>
-      <footer className="px-5 lg:px-10 mt-10">
+      <footer className="px-5 lg:px-10 mt-10 lg:mt-20">
         <Footer />
       </footer>
     </div>
