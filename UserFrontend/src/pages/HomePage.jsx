@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import HeroStats from "../components/HeroStats";
 import HeroIntro from "../components/HeroIntro";
 import IssueCard from "../components/IssueCard";
+import Footer from "../components/Footer";
 
 function HomePage() {
   return (
@@ -21,6 +22,9 @@ function HomePage() {
           <IssueCard />
         </div>
       </div>
+      <footer className="px-5 lg:px-10 mt-10">
+        <Footer />
+      </footer>
     </div>
   );
 }
