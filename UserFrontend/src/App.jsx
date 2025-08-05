@@ -6,12 +6,13 @@ import ReportPage from "./pages/ReportPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import FeedPage from "./pages/FeedPage";
+import IssuePage from "./pages/IssuePage";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   {
     path: "/about",
-    element: <h1>this is about</h1>,
+    element: <IssuePage />,
   },
   {
     path: "/report",
