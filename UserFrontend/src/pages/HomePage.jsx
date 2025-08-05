@@ -4,6 +4,7 @@ import HeroStats from "../components/HeroStats";
 import HeroIntro from "../components/HeroIntro";
 import IssueCard from "../components/IssueCard";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
@@ -14,7 +15,15 @@ function HomePage() {
 
       {/* trendig section */}
       <div className="px-5 md:px-10 mt-10">
-        <h1 className="text-2xl font-bold mb-5">Trending Issues</h1>
+        <div className="flex items-center justify-between w-full my-2">
+          <h1 className="text-2xl font-bold mb-5">Trending Issues</h1>
+          <Link
+            to={"/feed"}
+            className="p-1 rounded-lg border border-gray-100 shadow-md text-sm w-22 h-8 flex items-center justify-center roboto"
+          >
+            View all
+          </Link>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           <IssueCard />
           <IssueCard />
