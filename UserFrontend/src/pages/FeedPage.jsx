@@ -30,7 +30,16 @@ function FeedPage() {
   return (
     <>
       <NavBar />
-      {userLocation ? <MapComponent location={userLocation} /> : ""}
+      {userLocation ? (
+        <MapComponent
+          location={{
+            latitude: 23.194941,
+            longitude: 77.352688,
+          }}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }
