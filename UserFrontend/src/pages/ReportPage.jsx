@@ -1,11 +1,12 @@
 import React from "react";
 import NavBar from "../components/NavBar";
+import ReportIssueForm from "../components/reportPage/ReportIssueForm";
 
 function ReportPage() {
   return (
     <div>
       <NavBar />
-      <h1>This is Report Page</h1>
+      <ReportIssueForm />
     </div>
   );
 }
