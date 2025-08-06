@@ -45,8 +45,8 @@ function NavBar() {
           <Link to={"/feed"} className="hover:text-blue-700 transition">
             Feed
           </Link>
-          <Link to={"/about"} className="hover:text-blue-700 transition">
-            About
+          <Link to={"/myreports"} className="hover:text-blue-700 transition">
+            My Reports
           </Link>
           {isLogedIn ? (
             <button
@@ -97,11 +97,11 @@ function NavBar() {
                 Feed
               </Link>
               <Link
-                to={"/about"}
+                to={"/myreports"}
                 onClick={toggleMenu}
                 className="hover:text-blue-700"
               >
-                About
+                My Reports
               </Link>
               {isLogedIn ? (
                 <button

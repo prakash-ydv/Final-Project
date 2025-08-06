@@ -8,12 +8,17 @@ import SignUpPage from "./pages/SignUpPage";
 import FeedPage from "./pages/FeedPage";
 import IssuePage from "./pages/IssuePage";
 import ProtectedRoute from "./security/ProtectedRoute";
+import MyReports from "./pages/MyReports";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   {
-    path: "/about",
-    element: <IssuePage />,
+    path: "/myreports",
+    element: (
+      // <ProtectedRoute>
+        <MyReports />
+      // </ProtectedRoute>
+    ),
   },
   {
     path: "/report",
