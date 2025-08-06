@@ -56,7 +56,9 @@ const loginUser = async (req, res) => {
     console.log("data", data);
 
     if (!data) {
-      return res.status(404).json({ status: "User not found" });
+      return res
+        .status(404)
+        .json({ failed: "login failed", message: "User not found" });
     }
 
     const isPassMatched = await bcrypt.compare(password, data.password);

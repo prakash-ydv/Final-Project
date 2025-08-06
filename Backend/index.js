@@ -47,6 +47,6 @@ app.get("/admin/login", loginAdmin);
 app.post("/report", upload.single("image"), reportIssue);
 
 const PORT = process.env.PORT;
-app.listen(5000, () => {
-  console.log(`server running at PORT ${PORT || 8080}`);
+app.listen(8080, () => {
+  console.log(`server running at PORT ${8080}`);
 });
