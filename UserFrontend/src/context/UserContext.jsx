@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLayersControl } from "react-leaflet/LayersControl";
+import Cookies from "js-cookie";
 
 const UserContext = createContext();
 
@@ -11,6 +12,12 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
+  // find cookies
+  useEffect(() => {
+    const token = Cookies.get("token");
+    console.log("token :", token);
+  }, [isLogedIn]);
+  // get user location
   useEffect(() => {
     if (!userLocation) return;
     console.log("location set", userLocation);
