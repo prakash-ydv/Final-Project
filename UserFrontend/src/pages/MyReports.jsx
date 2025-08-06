@@ -55,8 +55,6 @@ function MyReports() {
       <NavBar />
       <div className="min-h-screen bg-gray-100 px-5 lg:px-10">
         <div className="mx-auto space-y-8">
-          
-
           {/* Stats Section */}
           {stats && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
@@ -85,7 +83,7 @@ function MyReports() {
 
           {/* Reports List */}
 
-          <div className="bg-white p-5 rounded-xl shadow-md">
+          <div className="bg-white p-5 rounded-xl ">
             <h2 className="text-2xl font-bold text-blue-600 mb-4">
               Your Reports
             </h2>
@@ -94,13 +92,16 @@ function MyReports() {
               <IssueCard />
               <IssueCard />
               <IssueCard />
+              <IssueCard />
+              <IssueCard />
             </div>
           </div>
         </div>
-        <Footer />
       </div>
 
-      
+      <section className="px-5 lg:px-10 mt-10">
+        <Footer />
+      </section>
     </>
   );
 }

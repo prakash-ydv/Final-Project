@@ -2,7 +2,7 @@ import React from "react";
 
 function IssueCard() {
   return (
-    <div className="flex flex-col w-full sm:w-[300px] md:w-[350px] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer relative">
+    <div className="flex flex-col w-full sm:w-[300px] md:w-[340px] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer relative">
       <div className="h-48 overflow-hidden">
         <img
           src="https://www.johnogroat-journal.co.uk/_media/img/975IB8Q66Q54FTKMQWP7.jpg"
