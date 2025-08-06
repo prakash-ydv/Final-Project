@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import FeedPage from "./pages/FeedPage";
 import IssuePage from "./pages/IssuePage";
+import ProtectedRoute from "./security/ProtectedRoute";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/report",
-    element: <ReportPage />,
+    element: (
+      <ProtectedRoute>
+        <ReportPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/login",

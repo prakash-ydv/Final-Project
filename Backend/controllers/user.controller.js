@@ -7,6 +7,7 @@ const secret_key = process.env.SECRET_KEY;
 
 const createUser = async (req, res) => {
   try {
+    console.log(req.body);
     const { name, email, password, city, phone } = req.body;
 
     // Basic check
@@ -48,7 +49,8 @@ const createUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { phone, password } = req.body;
+  const { phoneNo, password } = req.body;
+  const phone = Number(phoneNo);
   console.log(req.body);
 
   try {
@@ -80,6 +82,7 @@ const loginUser = async (req, res) => {
           secure: true, // Use only if you're on HTTPS
         })
         .json({
+          success: "login success",
           user: {
             name: data.name,
             role: data.role,
