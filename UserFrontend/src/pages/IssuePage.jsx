@@ -14,12 +14,39 @@ function IssuePage() {
     dateReported: "2025-08-05 11:24 AM",
     category: "Fallen Tree",
     status: "Pending",
-    timeline: ["Reported", "In Review", "Pending Action"],
     location: {
       latitude: 23.6454,
       longitude: 73.5454,
     },
+    // Updated timeline with dates/times
+    timeline: [
+      {
+        label: "Reported",
+        time: "2025-08-05 11:24 AM",
+        description: "Issue reported by resident",
+      },
+      {
+        label: "Review Started",
+        time: "2025-08-05 02:15 PM",
+        description: "Assigned to inspection team",
+      },
+      {
+        label: "Pending Action",
+        time: "2025-08-06 09:30 AM",
+        description: "Awaiting equipment availability",
+      },
+      {
+        label: "Resolution",
+        time: "—",
+        description: "Scheduled for clearance",
+      },
+    ],
   };
+
+  // Determine current status index for timeline highlighting
+  const statusIndex = issue.timeline.findIndex((item) =>
+    item.label.toLowerCase().includes(issue.status.toLowerCase())
+  );
 
   return (
     <>
@@ -68,45 +95,63 @@ function IssuePage() {
                   </span>
                 </p>
               </div>
-
-              {/* Timeline */}
-              <div className="mt-4">
-                <h2 className="text-lg font-medium mb-2">Issue Timeline</h2>
-                <div className="flex items-center gap-4">
-                  {issue.timeline.map((step, index) => (
-                    <div key={index} className="flex items-center">
-                      <div
-                        className={`w-4 h-4 rounded-full ${
-                          index === 0
-                            ? "bg-green-500"
-                            : index === 1
-                            ? "bg-yellow-400"
-                            : "bg-gray-400"
-                        }`}
-                      ></div>
-                      {index < issue.timeline.length - 1 && (
-                        <div className="w-10 h-1 bg-gray-300 mx-2"></div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex gap-10 mt-2 text-sm text-gray-600">
-                  {issue.timeline.map((step, index) => (
-                    <span key={index}>{step}</span>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* map */}
             <div className="w-full lg:w-1/2 h-[300px] lg:h-[80vh] overflow-hidden p-5">
               <MapComponent location={issue.location} />
             </div>
+
+            {/* Timeline Section */}
+            <div className="mt-8">
+              <h2 className="text-lg font-semibold mb-4">Issue Timeline</h2>
+
+              <div className="relative pl-8 border-l-2 border-gray-200">
+                {issue.timeline.map((step, index) => (
+                  <div
+                    key={index}
+                    className={`mb-6 relative ${
+                      index === issue.timeline.length - 1 ? "pb-0" : "pb-2"
+                    }`}
+                  >
+                    {/* Timeline dot */}
+                    <div
+                      className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 ${
+                        index <= statusIndex
+                          ? "bg-green-500 border-2 border-green-600"
+                          : "bg-gray-300 border-2 border-gray-400"
+                      }`}
+                    ></div>
+
+                    <div className="ml-4">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-medium text-gray-800">
+                          {step.label}
+                        </span>
+                        <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                          {step.time}
+                        </span>
+                        {index <= statusIndex && (
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                            {index === statusIndex
+                              ? "Current Status"
+                              : "Completed"}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <section className="mt-10">
-            <Footer />
+          <Footer />
         </section>
       </div>
     </>
