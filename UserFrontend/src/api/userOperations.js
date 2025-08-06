@@ -13,6 +13,7 @@ export async function loginUserApi(phoneNo, password) {
         phoneNo,
         password,
       }),
+      credentials: "include",
     });
 
     const data = await response.json();
@@ -40,6 +41,16 @@ export async function registerUserApi(name, email, password, city, phone) {
   });
 
   const data = await response.json(); // await was missing
+  console.log(data);
+  return data;
+}
+
+export async function logOutUserApi() {
+  const response = await fetch("http://localhost:8080/user/logout", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await response.json();
   console.log(data);
   return data;
 }

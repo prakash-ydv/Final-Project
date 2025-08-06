@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import { Menu, X, Map } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+import { logOutUserApi } from "../api/userOperations";
 
 function NavBar() {
+  const navigate = useNavigate();
+  const { isLogedIn, setIsLogedIn } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  async function handleLogOutUser() {
+    const respone = await logOutUserApi();
+    if (respone.success) {
+      setIsLogedIn(false);
+      navigate("/");
+    }
+  }
 
   return (
     <nav className="w-full shadow-xs top-0 left-0 z-50 bg-white">
@@ -36,9 +48,18 @@ function NavBar() {
           <Link to={"/about"} className="hover:text-blue-700 transition">
             About
           </Link>
-          <Link to={"/login"} className="hover:text-blue-700 transition">
-            Login
-          </Link>
+          {isLogedIn ? (
+            <button
+              onClick={() => handleLogOutUser()}
+              className="text-red-500 hover:text-blue-700 transition"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to={"/login"} className="hover:text-blue-700 transition">
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -82,13 +103,22 @@ function NavBar() {
               >
                 About
               </Link>
-              <Link
-                to={"/login"}
-                onClick={toggleMenu}
-                className="hover:text-blue-700"
-              >
-                Login
-              </Link>
+              {isLogedIn ? (
+                <button
+                  onClick={() => handleLogOutUser()}
+                  className="text-start text-red-500 hover:text-blue-700 transition"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  to={"/login"}
+                  onClick={toggleMenu}
+                  className="hover:text-blue-700"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
