@@ -26,7 +26,7 @@ function LoginPage() {
         setIsLogedIn(true);
         setUser(response.user);
         console.log("isLogedIn is True");
-        navigate("/report");
+        navigate("/");
       } else {
         console.log("isLogedIn is false");
       }
