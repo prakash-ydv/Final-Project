@@ -29,6 +29,9 @@ const issueSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    landmark: {
+      type: String,
+    },
     issueCoordinates: {
       latitude: { type: Number, required: true },
       longitude: { type: Number, required: true },

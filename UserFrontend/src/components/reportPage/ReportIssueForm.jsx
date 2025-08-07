@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { FiUploadCloud, FiMapPin, FiSend } from "react-icons/fi";
+import { reportIssue } from "../../api/issueOperations";
+import { useNavigate } from "react-router-dom";
 
 function ReportIssueForm() {
+  const navigate = useNavigate();
+  // form data
   const [preview, setPreview] = useState(null);
+  const [image, setImage] = useState("");
+  const [issueTitle, setIssueTitle] = useState("");
+  const [issueDesc, setIssueDesc] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [location, setLocation] = useState("Fetching location...");
+  const [locationExtra, setLocationExtra] = useState("");
+  const [locationError, setLocationError] = useState("");
+
+  // form handle states
+  const [submitButtonText, setSubmitButtonText] = useState("Report Issue");
+
   const categories = [
     "Pothole",
     "Garbage",
@@ -11,11 +26,6 @@ function ReportIssueForm() {
     "Noise",
     "Other",
   ];
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const [location, setLocation] = useState("Fetching location...");
-  const [locationExtra, setLocationExtra] = useState("");
-  const [locationError, setLocationError] = useState("");
 
   useEffect(() => {
     fetchLocation();
@@ -58,10 +68,51 @@ function ReportIssueForm() {
     );
   };
 
+  // handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+      setImage(file);
+    }
   };
+
+  async function uploadIssue(e) {
+    console.log("uploading...");
+    e.preventDefault();
+
+    if (!location || !image || !issueTitle || !selectedCategory) return;
+    console.log("upload in process");
+
+    // change string location to number
+    const [latStr, lngStr] = location
+      .replace("Lat: ", "")
+      .replace("Lng: ", "")
+      .split(", ");
+
+    const latitude = parseFloat(latStr);
+    const longitude = parseFloat(lngStr);
+    setSubmitButtonText("Uploading...");
+    const response = await reportIssue(
+      image,
+      issueTitle,
+      selectedCategory,
+      latitude,
+      longitude,
+      locationExtra
+    );
+
+    if (response.success) {
+      setSubmitButtonText("Uploaded");
+      navigate("/");
+      setSubmitButtonText("Report Issue");
+    } else {
+      setSubmitButtonText("Failed to Upload");
+      setTimeout(() => {
+        setSubmitButtonText("Report Issue");
+      }, 2000);
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -71,7 +122,7 @@ function ReportIssueForm() {
           Help improve your city by reporting local problems
         </p>
 
-        <form className="space-y-6">
+        <form onSubmit={(e) => uploadIssue(e)} className="space-y-6">
           {/* Image Upload Section */}
           <div>
             <label className="text-base font-medium flex items-center gap-2 mb-2">
@@ -135,13 +186,26 @@ function ReportIssueForm() {
           </div>
           {/* Additional Location Info */}
           <div className="mt-4">
-            <label className="block font-medium mb-1">Additional Info</label>
+            <label className="block font-medium mb-1">Landmark</label>
             <input
               type="text"
               required
               placeholder="e.g., Near temple, beside post office"
               value={locationExtra}
               onChange={(e) => setLocationExtra(e.target.value)}
+              className="w-full border rounded-lg px-4 py-2 outline-none"
+            />
+          </div>
+          {/* Issue Title */}
+          <div className="mt-4">
+            <label className="block font-medium mb-1"> Issue Title</label>
+            <input
+              onChange={(e) => setIssueTitle(e.target.value)}
+              value={issueTitle}
+              spellCheck={false}
+              type="text"
+              required
+              placeholder="e.g., Roadside garbage dump"
               className="w-full border rounded-lg px-4 py-2 outline-none"
             />
           </div>
@@ -152,6 +216,10 @@ function ReportIssueForm() {
               Description <span className="text-gray-400">(Optional)</span>
             </label>
             <textarea
+              minLength={10}
+              value={issueDesc}
+              onChange={(e) => setIssueDesc(e.target.value)}
+              spellCheck={false}
               placeholder="Provide additional details about the issue..."
               rows="4"
               className="w-full border rounded-lg p-3 outline-none resize-none"
@@ -185,7 +253,7 @@ function ReportIssueForm() {
             className="w-full flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
           >
             <FiSend />
-            Submit Report
+            {submitButtonText}
           </button>
         </form>
       </div>

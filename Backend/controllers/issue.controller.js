@@ -15,6 +15,7 @@ cloudinary.config({
 });
 
 const reportIssue = async (req, res) => {
+  console.log(req.body);
   try {
     // 🔒 Step 1: Check for token in cookies
     const token = req.cookies.token;
@@ -32,8 +33,14 @@ const reportIssue = async (req, res) => {
     }
 
     // 📦 Step 3: Destructure and validate request body
-    const { issueTitle, issueDepartment, latitude, longitude, issueDesc } =
-      req.body;
+    const {
+      issueTitle,
+      issueDepartment,
+      latitude,
+      longitude,
+      issueDesc,
+      landmark,
+    } = req.body;
 
     if (!issueTitle || !issueDepartment || !latitude || !longitude) {
       return res.status(400).json({ error: "Missing required fields" });
@@ -70,6 +77,7 @@ const reportIssue = async (req, res) => {
       reporterId: user._id,
       reporterPhone: user.phone,
       issueDesc,
+      landmark,
       issueCoordinates: {
         latitude: lat,
         longitude: lon,
@@ -81,7 +89,7 @@ const reportIssue = async (req, res) => {
 
     // 🎉 Step 7: Respond with success
     return res.status(201).json({
-      status: "success",
+      success: "issue reported",
       imageUrl: result.secure_url,
       issueId: reportedIssue._id,
     });

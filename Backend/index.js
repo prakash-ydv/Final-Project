@@ -48,7 +48,7 @@ app.get("/user/logout", logOutUser);
 app.get("/admin/login", loginAdmin);
 
 // main action routes
-app.post("/report", upload.single("image"), reportIssue);
+app.post("/issue/report", upload.single("image"), reportIssue);
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {
