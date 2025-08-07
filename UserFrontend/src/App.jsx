@@ -15,9 +15,9 @@ const router = createBrowserRouter([
   {
     path: "/myreports",
     element: (
-      // <ProtectedRoute>
+      <ProtectedRoute>
         <MyReports />
-      // </ProtectedRoute>
+      </ProtectedRoute>
     ),
   },
   {
