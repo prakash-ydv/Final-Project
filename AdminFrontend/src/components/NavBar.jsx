@@ -29,10 +29,13 @@ function NavBar() {
 
         {/* Desktop Nav */}
         <div className="hidden items-center justify-center md:flex gap-6 text-gray-700 text-sm font-medium">
+          <span className="bg-gray-50 border border-gray-100 rounded-lg  p-2 font-semibold ">
+            City : Bhopal
+          </span>
           {isLogedIn ? (
             <button
               onClick={() => handleLogOutUser()}
-              className="bg-red-500 p-1 px-4 text-lg rounded-lg text-white broder border-gray-100 hover:bg-red-700 transition"
+              className="bg-red-500 p-1 px-4 rounded-lg text-white broder border-gray-100 hover:bg-red-700 transition"
             >
               Logout
             </button>
