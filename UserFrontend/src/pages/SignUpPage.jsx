@@ -1,9 +1,12 @@
 import React, { use, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { registerUserApi } from "../api/userOperations";
 
 function SignUpPage() {
+  const navitage = useNavigate();
+
+  const [resiterButtonText, setRegisteredButtonText] = useState("Register");
   const { setIsLogedIn, setUser } = useUser();
 
   const [name, setName] = useState("");
@@ -15,6 +18,8 @@ function SignUpPage() {
   async function signUpRequest(e) {
     e.preventDefault();
     console.log(name, email, password, city, phoneNo);
+    if (!name || !email || !password || !city || !phoneNo) return;
+    setRegisteredButtonText("Creating User...");
     const response = await registerUserApi(
       name,
       email,
@@ -22,7 +27,14 @@ function SignUpPage() {
       city,
       phoneNo
     );
-    console.log(response);
+
+    if (response.success) {
+      console.log("user registered");
+      setIsLogedIn(true);
+      setUser(response.user);
+      navitage("/");
+      setRegisteredButtonText("Register");
+    }
 
     setName("");
     setEmail("");
@@ -117,7 +129,7 @@ function SignUpPage() {
             type="submit"
             className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
           >
-            Register
+            {resiterButtonText}
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
