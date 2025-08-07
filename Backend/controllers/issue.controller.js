@@ -87,6 +87,15 @@ const reportIssue = async (req, res) => {
 
     const reportedIssue = await issue.save();
 
+    // add the issue to user's reported list
+    await User.findByIdAndUpdate(
+      user._id,
+      {
+        $push: { issueReported: reportedIssue._id },
+      },
+      { new: true }
+    );
+
     // 🎉 Step 7: Respond with success
     return res.status(201).json({
       success: "issue reported",

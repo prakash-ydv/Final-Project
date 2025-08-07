@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    issueReported: [],
+    issueReported: [mongoose.Schema.Types.ObjectId],
     civicScore: Number,
   },
   { timestamps: true }
