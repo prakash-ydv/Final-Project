@@ -20,10 +20,14 @@ const verifyToken = require("./middlewares/verify.token");
 // middle wares
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend's actual URL
+    origin: [
+      "http://localhost:5173",
+      "https://final-project-virid-omega.vercel.app",
+    ],
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(express.json()); //to parse json
 const upload = multer({ dest: "uploads/" });
