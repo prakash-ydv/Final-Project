@@ -6,6 +6,7 @@ export async function loginUserApi(phoneNo, password) {
     return;
   }
   try {
+    console.log(`${BaseUrl}/user/login`);
     const response = await fetch(`${BaseUrl}/user/login`, {
       method: "POST",
       headers: {
