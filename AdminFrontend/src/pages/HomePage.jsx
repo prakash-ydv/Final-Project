@@ -8,8 +8,133 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import RecentIssueCard from "../components/RecentIssueCard";
+import IssueMap from "../components/IssueMap";
 
 function HomePage() {
+  
+  const issues = [
+    {
+      id: "ISSUE001",
+      title: "Water pipe leakage near MP Nagar",
+      description: "Major leakage causing water wastage and road flooding.",
+      location: "MP Nagar Zone 1, Bhopal",
+      priority: "high",
+      status: "In Progress",
+      lat: 23.2333,
+      lng: 77.4344,
+    },
+    {
+      id: "ISSUE002",
+      title: "Streetlight not working",
+      description: "Dark area at night, potential safety risk.",
+      location: "Kolar Road, Bhopal",
+      priority: "medium",
+      status: "Reported",
+      lat: 23.1986,
+      lng: 77.48,
+    },
+    {
+      id: "ISSUE003",
+      title: "Potholes on road",
+      description: "Multiple potholes slowing down traffic.",
+      location: "Habibganj Railway Station Area, Bhopal",
+      priority: "low",
+      status: "Assigned",
+      lat: 23.2361,
+      lng: 77.4515,
+    },
+    {
+      id: "ISSUE004",
+      title: "Overflowing garbage bin",
+      description: "Waste overflowing for 3 days, foul smell in area.",
+      location: "New Market, Bhopal",
+      priority: "medium",
+      status: "Resolved",
+      lat: 23.2406,
+      lng: 77.3996,
+    },
+    {
+      id: "ISSUE005",
+      title: "Broken traffic signal",
+      description: "Signal not functioning, causing traffic jams.",
+      location: "Board Office Square, Bhopal",
+      priority: "high",
+      status: "In Progress",
+      lat: 23.2307,
+      lng: 77.4358,
+    },
+    {
+      id: "ISSUE006",
+      title: "Drainage blockage",
+      description: "Water clogging during rains due to blockage.",
+      location: "Bairagarh, Bhopal",
+      priority: "high",
+      status: "Reported",
+      lat: 23.2792,
+      lng: 77.3412,
+    },
+    {
+      id: "ISSUE007",
+      title: "Fallen tree blocking road",
+      description: "Tree uprooted due to storm, blocking traffic.",
+      location: "Shahpura Lake Area, Bhopal",
+      priority: "medium",
+      status: "In Progress",
+      lat: 23.1982,
+      lng: 77.4314,
+    },
+    {
+      id: "ISSUE008",
+      title: "Open manhole",
+      description: "Hazardous open manhole near residential area.",
+      location: "Idgah Hills, Bhopal",
+      priority: "high",
+      status: "Assigned",
+      lat: 23.268,
+      lng: 77.4013,
+    },
+    {
+      id: "ISSUE009",
+      title: "Illegal parking causing jams",
+      description: "Cars parked in no-parking zone, blocking road.",
+      location: "Hamidia Road, Bhopal",
+      priority: "low",
+      status: "Resolved",
+      lat: 23.2616,
+      lng: 77.4095,
+    },
+    {
+      id: "ISSUE010",
+      title: "Street flooding after rain",
+      description: "Poor drainage causing water to accumulate.",
+      location: "Ashoka Garden, Bhopal",
+      priority: "medium",
+      status: "In Progress",
+      lat: 23.2591,
+      lng: 77.4569,
+    },
+    {
+      id: "ISSUE011",
+      title: "Collapsed footpath",
+      description: "Damaged footpath posing a risk to pedestrians.",
+      location: "Govindpura, Bhopal",
+      priority: "medium",
+      status: "Reported",
+      lat: 23.2472,
+      lng: 77.4809,
+    },
+    {
+      id: "ISSUE012",
+      title: "Garbage burning causing pollution",
+      description: "Air pollution due to open garbage burning.",
+      location: "Chhola, Bhopal",
+      priority: "high",
+      status: "Reported",
+      lat: 23.2805,
+      lng: 77.4202,
+    },
+  ];
+
   const heroDetails = [
     {
       title: "Total Issues",
@@ -90,8 +215,13 @@ function HomePage() {
           />
         ))}
       </section>
+      {/* map */}
+      <section className="flex flex-col p-5 mx-10 rounded-lg overflow-hidden border border-gray-100 shadow-md">
+        <h1 className="font-bold text-2xl pb-5">Issue Map</h1>
+        <IssueMap issues={issues} />
+      </section>
 
-      {/* Search & Filters */}
+      {/* recent issue */}
       <section className="p-5 lg:px-10 mt-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <h2 className="text-xl font-bold text-gray-800">Recent Issues</h2>
@@ -136,10 +266,18 @@ function HomePage() {
         {/* Pagination */}
         <div className="flex justify-end mt-4">
           <nav className="flex gap-2">
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">Prev</button>
-            <button className="px-3 py-1 border rounded bg-blue-500 text-white">1</button>
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">2</button>
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">Next</button>
+            <button className="px-3 py-1 border rounded hover:bg-gray-100">
+              Prev
+            </button>
+            <button className="px-3 py-1 border rounded bg-blue-500 text-white">
+              1
+            </button>
+            <button className="px-3 py-1 border rounded hover:bg-gray-100">
+              2
+            </button>
+            <button className="px-3 py-1 border rounded hover:bg-gray-100">
+              Next
+            </button>
           </nav>
         </div>
       </section>
