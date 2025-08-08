@@ -29,3 +29,4 @@ function HeroCard(props) {
     </div>
   );
 }
+export default HeroCard;

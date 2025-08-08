@@ -5,12 +5,11 @@ const AdminContext = createContext();
 
 // Provider component
 export function AdminProvider({ children }) {
-  const [isAdmin, setIsAdmin] = useState(false); 
-  const [adminData, setAdminData] = useState(null); 
-  
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminData, setAdminData] = useState(null);
 
   return (
-    <AdminContext.Provider value={{ isAdmin, adminData, loginAsAdmin, logoutAdmin }}>
+    <AdminContext.Provider value={{ isAdmin, adminData }}>
       {children}
     </AdminContext.Provider>
   );
