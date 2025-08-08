@@ -11,7 +11,6 @@ import RecentIssueCard from "../components/RecentIssueCard";
 import IssueMap from "../components/IssueMap";
 
 function HomePage() {
-  
   const issues = [
     {
       id: "ISSUE001",
@@ -216,7 +215,7 @@ function HomePage() {
         ))}
       </section>
       {/* map */}
-      <section className="flex flex-col p-5 mx-10 rounded-lg overflow-hidden border border-gray-100 shadow-md">
+      <section className="flex flex-col p-5 lg:mx-10 rounded-lg overflow-hidden border border-gray-100 shadow-md">
         <h1 className="font-bold text-2xl pb-5">Issue Map</h1>
         <IssueMap issues={issues} />
       </section>
@@ -249,7 +248,7 @@ function HomePage() {
         </div>
 
         {/* Issues List */}
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm mt-4">
+        <div className="bg-white rounded-lg overflow-hidden mt-4">
           {recentIssues.map((issue, index) => (
             <RecentIssueCard
               key={index}
@@ -261,24 +260,6 @@ function HomePage() {
               timeAgo={issue.timeAgo}
             />
           ))}
-        </div>
-
-        {/* Pagination */}
-        <div className="flex justify-end mt-4">
-          <nav className="flex gap-2">
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">
-              Prev
-            </button>
-            <button className="px-3 py-1 border rounded bg-blue-500 text-white">
-              1
-            </button>
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">
-              2
-            </button>
-            <button className="px-3 py-1 border rounded hover:bg-gray-100">
-              Next
-            </button>
-          </nav>
         </div>
       </section>
     </>
