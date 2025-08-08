@@ -74,7 +74,7 @@ function IssueMap({ issues }) {
                   borderRadius: "4px",
                   cursor: "pointer",
                 }}
-                onClick={() => navigate(`/issue/${issue.id}`)}
+                onClick={() => navigate(`/issue`)}
               >
                 View Problem
               </button>
