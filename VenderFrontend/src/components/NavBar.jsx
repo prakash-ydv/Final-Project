@@ -30,20 +30,11 @@ function NavBar() {
 
         {/* Desktop Nav */}
         <div className="hidden items-center justify-center md:flex gap-6 text-gray-700 text-sm font-medium">
-          <Link
-            to={"/report"}
-            className="hover:bg-purple-700 bg-blue-700 p-2 rounded-md text-white transition"
-          >
-            Report Issue
-          </Link>
           <Link to={"/"} className="hover:text-blue-700 transition">
             Home
           </Link>
-          <Link to={"/feed"} className="hover:text-blue-700 transition">
-            Feed
-          </Link>
-          <Link to={"/myreports"} className="hover:text-blue-700 transition">
-            My Reports
+          <Link to={"/recentworks"} className="hover:text-blue-700 transition">
+            Recent Works
           </Link>
           {isLogedIn ? (
             <button
@@ -87,18 +78,11 @@ function NavBar() {
                 Home
               </Link>
               <Link
-                to={"/feed"}
+                to={"/recentworks"}
                 onClick={toggleMenu}
                 className="hover:text-blue-700"
               >
-                Feed
-              </Link>
-              <Link
-                to={"/myreports"}
-                onClick={toggleMenu}
-                className="hover:text-blue-700"
-              >
-                My Reports
+                Recent Works
               </Link>
               {isLogedIn ? (
                 <button
