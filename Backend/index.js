@@ -17,14 +17,15 @@ const {
 const { reportIssue, findIssue } = require("./controllers/issue.controller");
 const { loginAdmin } = require("./controllers/admin.controller");
 const verifyToken = require("./middlewares/verify.token");
+const {
+  createVendor,
+  loginVendor,
+} = require("./controllers/ventor.controller");
 
 // middle wares
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://final-project-virid-omega.vercel.app",
-    ],
+    origin: ["http://localhost:5173"],
     credentials: true,
   })
 );
@@ -51,7 +52,11 @@ app.get("/admin/login", loginAdmin);
 // main action routes
 app.post("/issue/report", upload.single("image"), reportIssue);
 app.post("/issue/find", findIssue);
-app.get("/user/myreports" , myReportsDetails)
+app.get("/user/myreports", myReportsDetails);
+
+//vendor routes
+app.post("/vendor/register", createVendor);
+app.post("/vendor/login", loginVendor);
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {
