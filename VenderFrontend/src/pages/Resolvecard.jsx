@@ -4,7 +4,7 @@ function Card() {
   return (
     <div>
       {/* First RsolveCard */}
-      <div className="md:w-[400px] w-[380px] ml-[5px] h-[320px] mt-[10px] border-2 rounded-lg  px-[30px] py-[20px] md:ml-[5px] md:mt-[10px]">
+      <div className=" md:w-[400px] w-[380px] ml-[5px] h-[320px] mt-[10px] border-2 rounded-lg  px-[30px] py-[20px] md:ml-[5px] md:mt-[10px]">
         <div className="overflow-hidden rounded-lg w-full h-[150px]">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd_Fc0nmhSZT7pCYM_N30b5PoThMg7hmSNFg&s"
@@ -12,6 +12,7 @@ function Card() {
             className="w-full h-full object-cover"
           />
         </div>
+
         <div className="flex flex-col gap-2 mt-4">
           <h1 className="font-bold">
             Department :<span className="font-normal">Garbage</span>
@@ -27,6 +28,7 @@ function Card() {
             <span className="font-normal">This is a garbage item</span>
           </h1>
         </div>
+        
       </div>
       {/* END: resolve history */}
 
