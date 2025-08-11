@@ -22,6 +22,7 @@ const {
   loginVendor,
   logOutVendor,
 } = require("./controllers/ventor.controller");
+const { createDepartment } = require("./controllers/department.controller");
 
 // middle wares
 app.use(
@@ -59,6 +60,9 @@ app.get("/user/myreports", myReportsDetails);
 app.post("/vendor/register", createVendor);
 app.post("/vendor/login", loginVendor);
 app.get("/vendor/logout", logOutVendor);
+
+// department
+app.post("/department/register", createDepartment);
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {
