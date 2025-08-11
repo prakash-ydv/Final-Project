@@ -51,6 +51,7 @@ const createVendor = async (req, res) => {
 };
 
 const loginVendor = async (req, res) => {
+  console.log(req.body);
   const { phoneNo, password } = req.body;
   const phone = Number(phoneNo);
 
@@ -99,6 +100,7 @@ const loginVendor = async (req, res) => {
 };
 
 const logOutVendor = async (req, res) => {
+  console.log("logOur Request Recieved");
   try {
     res.clearCookie("token");
     res.json({ success: "logout success" });
@@ -120,7 +122,9 @@ const myAssignedIssues = async (req, res) => {
       return res.status(404).json({ failed: "Vendor not found" });
     }
 
-    const issues = await Issue.find({ _id: { $in: vendorDetails.issueHandled } });
+    const issues = await Issue.find({
+      _id: { $in: vendorDetails.issueHandled },
+    });
 
     res.json({ success: true, issues });
   } catch (err) {

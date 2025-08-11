@@ -6,12 +6,7 @@ const VendorContext = createContext();
 
 // Provider Component
 export function VendorProvider({ children }) {
-  const [vendor, setVendor] = useState({
-    id: null,
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const [vendor, setVendor] = useState({});
   const [isLogedIn, setIsLogedIn] = useState(true);
 
   const updateVendor = (data) => {
@@ -19,7 +14,9 @@ export function VendorProvider({ children }) {
   };
 
   return (
-    <VendorContext.Provider value={{ vendor, updateVendor }}>
+    <VendorContext.Provider
+      value={{ vendor, updateVendor, setVendor, isLogedIn, setIsLogedIn }}
+    >
       {children}
     </VendorContext.Provider>
   );

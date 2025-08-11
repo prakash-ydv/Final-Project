@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import { Menu, X, Map } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { useVendor } from "../context/VendorContext";
+import { logOutVendor } from "../api/vendor";
 
 function NavBar() {
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  const navigate = useNavigate();
+  const { isLogedIn, setIsLogedIn } = useVendor();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   async function handleLogOutUser() {
-    const respone = await logOutUserApi();
+    console.log("loging Out");
+    const respone = await logOutVendor();
     if (respone.success) {
       setIsLogedIn(false);
-      navigate("/");
+      navigate("/login");
     }
   }
 
@@ -25,7 +29,9 @@ function NavBar() {
           <span className="h-10 w-10 bg-blue-700 rounded-lg flex items-center justify-center">
             <Map className="text-white" />
           </span>
-          <h1 className="text-2xl font-bold text-gray-800">CityFix <span className="text-xs font-light">Vendor</span></h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            CityFix <span className="text-xs font-light">Vendor</span>
+          </h1>
         </div>
 
         {/* Desktop Nav */}
@@ -78,7 +84,7 @@ function NavBar() {
                 Home
               </Link>
               <Link
-                to={"/recentworks"}
+                to={"/works"}
                 onClick={toggleMenu}
                 className="hover:text-blue-700"
               >

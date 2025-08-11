@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import loginVendor from "../api/vendor";
+import { useVendor } from "../context/VendorContext";
 
 function LoginPage() {
+  const { setVendor, setIsLogedIn } = useVendor();
   const navigate = useNavigate();
 
   const [phoneNo, setPhoneNo] = useState("");
@@ -17,11 +20,11 @@ function LoginPage() {
     }
 
     try {
-      const response = await loginUserApi(phoneNo, password);
+      const response = await loginVendor(phoneNo, password);
       console.log("Login success:", response);
       if (response.success) {
         setIsLogedIn(true);
-        setUser(response.user);
+        setVendor(response.vendor);
         console.log("isLogedIn is True");
         navigate("/");
       } else {

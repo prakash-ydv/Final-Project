@@ -20,6 +20,7 @@ const verifyToken = require("./middlewares/verify.token");
 const {
   createVendor,
   loginVendor,
+  logOutVendor,
 } = require("./controllers/ventor.controller");
 
 // middle wares
@@ -57,6 +58,7 @@ app.get("/user/myreports", myReportsDetails);
 //vendor routes
 app.post("/vendor/register", createVendor);
 app.post("/vendor/login", loginVendor);
+app.get("/vendor/logout", logOutVendor);
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {
