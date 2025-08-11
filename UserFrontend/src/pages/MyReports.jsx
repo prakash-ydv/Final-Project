@@ -23,13 +23,13 @@ function MyReports() {
 
           const totalIssues = data.issues.length;
           const inProgressCount = data.issues.filter(
-            issue => issue.issueStatus === "in-progress"
+            (issue) => issue.issueStatus === "in-progress"
           ).length;
           const resolvedCount = data.issues.filter(
-            issue => issue.issueStatus === "resolved"
+            (issue) => issue.issueStatus === "resolved"
           ).length;
           const rejectedCount = data.issues.filter(
-            issue => issue.issueStatus === "rejected"
+            (issue) => issue.issueStatus === "rejected"
           ).length;
 
           setTotal(totalIssues);
@@ -73,9 +73,10 @@ function MyReports() {
               Your Reports
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {console.log(reports)}
               {reports.length > 0 ? (
-                reports.map((report, index) => (
-                  <IssueCard key={index} issue={report} />
+                reports.map((item, index) => (
+                  <IssueCard key={index} image={item.imageUrl} title={item.issueTitle} status={item.issueStatus} category={item.issueDepartment} />
                 ))
               ) : (
                 <p>No reports found</p>
