@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useLayersControl } from "react-leaflet/LayersControl";
 import Cookies from "js-cookie";
+import { getAllIssuesApi } from "../api/issueOperations";
 
 const UserContext = createContext();
 
@@ -12,7 +13,16 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [myReports, setMyReports] = useState(null);
+  const [trendingIssues, setTrendingIssues] = useState([]);
 
+  // get all issues
+  useEffect(() => {
+    async function fetchAllIssues() {
+      const data = await getAllIssuesApi();
+      setTrendingIssues(data);
+    }
+    fetchAllIssues();
+  }, []);
   // find cookies
   useEffect(() => {
     const token = Cookies.get("token");
@@ -45,6 +55,7 @@ export const UserProvider = ({ children }) => {
         setIsLogedIn,
         userLocation,
         setUserLocation,
+        trendingIssues
       }}
     >
       {children}

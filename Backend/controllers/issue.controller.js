@@ -128,7 +128,32 @@ const findIssue = async (req, res) => {
   }
 };
 
+// get all issues
+
+const getAllIssues = async (req, res) => {
+  try {
+    const issues = await Issue.find().sort({ createdAt: -1 }); // latest first
+    if (!issues || issues.length === 0) {
+      return res.status(404).json({ error: "No issues found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      count: issues.length,
+      data: issues,
+    });
+  } catch (err) {
+    console.error("Error fetching all issues:", err.message);
+    return res.status(500).json({
+      error: "Failed to fetch issues",
+      details: err.message,
+    });
+  }
+};
+
+
 module.exports = {
   reportIssue,
   findIssue,
+  getAllIssues,
 };

@@ -1,10 +1,11 @@
 import React from "react";
 
 function IssueCard(props) {
-  const { image, title, category,status } = props;
+  const { image, title, category, status } = props;
   return (
     <div className="flex flex-col w-full sm:w-[300px] md:w-[340px] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer relative">
       <div className="h-48 overflow-hidden">
+        {console.log(image)}
         <img src={image} alt="Issue" className="object-cover w-full h-full" />
       </div>
       {/* category */}
@@ -18,7 +19,7 @@ function IssueCard(props) {
             Reports: <strong>14</strong>
           </span>
           <span className="w-30 text-center bg-yellow-200 px-2 py-0.5 rounded-full text-xs">
-            Status: {status}
+            {status}
           </span>
         </div>
       </div>

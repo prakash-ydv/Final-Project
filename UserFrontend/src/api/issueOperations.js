@@ -36,3 +36,10 @@ export async function getMyReports() {
   return data;
   console.log(data);
 }
+
+export async function getAllIssuesApi() {
+  const response = await fetch("http://localhost:8080/issues/getall");
+  const data = await response.json();
+  console.log(data);
+  return data;
+}

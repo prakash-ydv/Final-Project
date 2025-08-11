@@ -55,10 +55,10 @@ function RecentIssueCard({
   ];
   
   const teamOptions = [
-    { id: "team1", name: "Emergency Response Team" },
-    { id: "team2", name: "Infrastructure Maintenance" },
+    { id: "team1", name: "Garbage Dpartment" },
+    { id: "team2", name: "Electricity Department" },
     { id: "team3", name: "Water Department" },
-    { id: "team4", name: "Quality Control" }
+    { id: "team4", name: "Safety Department" }
   ];
   
   const handleSave = () => {

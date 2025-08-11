@@ -14,7 +14,11 @@ const {
   logOutUser,
   myReportsDetails,
 } = require("./controllers/user.controller");
-const { reportIssue, findIssue } = require("./controllers/issue.controller");
+const {
+  reportIssue,
+  findIssue,
+  getAllIssues,
+} = require("./controllers/issue.controller");
 const { loginAdmin } = require("./controllers/admin.controller");
 const verifyToken = require("./middlewares/verify.token");
 const {
@@ -55,6 +59,7 @@ app.get("/admin/login", loginAdmin);
 app.post("/issue/report", upload.single("image"), reportIssue);
 app.post("/issue/find", findIssue);
 app.get("/user/myreports", myReportsDetails);
+app.get("/issues/getall", getAllIssues);
 
 //vendor routes
 app.post("/vendor/register", createVendor);
