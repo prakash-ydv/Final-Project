@@ -9,32 +9,123 @@ import Footer from "../components/Footer";
 // Dummy data
 const issueReports = [
   {
-    latitude: 23.2599,
-    longitude: 77.4126,
-    title: "Pothole on 5th Street",
+    latitude: 18.5204,
+    longitude: 73.8567,
+    title: "Pothole on JM Road",
     description: "Deep pothole causing trouble",
     category: "pothole",
   },
   {
-    latitude: 23.2605,
-    longitude: 77.415,
+    latitude: 18.5293,
+    longitude: 73.8494,
     title: "Garbage overflow",
     description: "Bins haven't been cleared in 3 days",
     category: "garbage",
   },
   {
-    latitude: 23.2611,
-    longitude: 77.4108,
+    latitude: 18.531,
+    longitude: 73.8441,
     title: "Broken streetlight",
     description: "Dark at night, unsafe area",
     category: "streetlight",
   },
   {
-    latitude: 23.2645,
-    longitude: 77.4175,
+    latitude: 18.5152,
+    longitude: 73.8415,
     title: "Leaking water pipe",
     description: "Causing flooding on road",
     category: "water",
+  },
+];
+
+const reports = [
+  {
+    issueCoordinates: {
+      latitude: 16.5975,
+      longitude: 74.1005,
+    },
+    _id: "689a1393e20bf0269b6d4f35",
+    issueId: "ISSUE112",
+    issueTitle: "garbage roadside",
+    issueDepartment: "Garbage",
+    reporterName: "Prakash Yadav",
+    reporterPhone: 8210918083,
+    reporterId: "6899a16d06ec9b0368554466",
+    landmark: "near market",
+    issueStatus: "pending",
+    imageUrl:
+      "https://res.cloudinary.com/ddzhczocz/image/upload/v1754928018/uploads/m7rjr5tx0fsuyxjxcpsi.jpg",
+    upvotedBy: [],
+    comments: [],
+    createdAt: "2025-08-11T16:00:19.072Z",
+    updatedAt: "2025-08-11T16:00:19.072Z",
+    __v: 0,
+  },
+  {
+    issueCoordinates: {
+      latitude: 18.4943,
+      longitude: 74.01971,
+    },
+    _id: "689a0d13e20bf0269b6d4f26",
+    issueId: "ISSUE112",
+    issueTitle: "Garbag in Old Lake",
+    issueDepartment: "Garbage",
+    reporterName: "Prakash Yadav",
+    reporterPhone: 8210918083,
+    reporterId: "6899a16d06ec9b0368554466",
+    landmark: "Near Old School",
+    issueStatus: "pending",
+    imageUrl:
+      "https://res.cloudinary.com/ddzhczocz/image/upload/v1754926354/uploads/kwp7igzjgupl4tztccaq.webp",
+    upvotedBy: [],
+    comments: [],
+    createdAt: "2025-08-11T15:32:35.370Z",
+    updatedAt: "2025-08-11T15:32:35.370Z",
+    __v: 0,
+  },
+  {
+    issueCoordinates: {
+      latitude: 16.5975,
+      longitude: 74.1005,
+    },
+    _id: "689a0ae9e20bf0269b6d4ef8",
+    issueId: "ISSUE112",
+    issueTitle: "Garbag Dump",
+    issueDepartment: "Garbage",
+    reporterName: "Prakash Yadav",
+    reporterPhone: 8210918083,
+    reporterId: "6899a16d06ec9b0368554466",
+    landmark: "near new market",
+    issueStatus: "resolved",
+    imageUrl:
+      "https://res.cloudinary.com/ddzhczocz/image/upload/v1754925801/uploads/ofz4qz8vsfhh1ton3imf.avif",
+    upvotedBy: [],
+    comments: [],
+    createdAt: "2025-08-11T15:23:21.444Z",
+    updatedAt: "2025-08-11T15:23:21.444Z",
+    __v: 0,
+  },
+  {
+    issueCoordinates: {
+      latitude: 18.49423,
+      longitude: 74.01965,
+    },
+    _id: "689a0a94e20bf0269b6d4ef2",
+    issueId: "ISSUE112",
+    issueTitle: "Illegal Garbage Dump",
+    issueDepartment: "Garbage",
+    reporterName: "Prakash Yadav",
+    reporterPhone: 8210918083,
+    reporterId: "6899a16d06ec9b0368554466",
+    landmark: "Near Taj Mahal",
+    issueStatus: "pending",
+    imageUrl:
+      "https://res.cloudinary.com/ddzhczocz/image/upload/v1754925716/uploads/b9ucxpas5yzgoqmgtv69.jpg",
+    upvotedBy: [],
+    comments: [],
+    createdAt: "2025-08-11T15:21:56.182Z",
+    updatedAt: "2025-08-11T15:21:56.182Z",
+    __v: 0,
   },
 ];
 
@@ -78,8 +169,8 @@ function FeedPage() {
             <MapComponent
               reports={issueReports}
               location={{
-                latitude: 21.7878778, //userLocation.latitude,
-                longitude: 73.4545454 //userLocation.longitude,
+                latitude: 18.49418, //userLocation.latitude,
+                longitude: 74.01969, //userLocation.longitude,
               }}
             />
           ) : (
@@ -112,12 +203,18 @@ function FeedPage() {
       {/* More Issues */}
       <div className="px-5 lg:px-10 py-10">
         <h1 className="text-2xl font-semibold text-gray-800 mb-5">
-          More Issues in Bhopal
+          More Issues in Pune
         </h1>
         <div className="grid sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {/* Add dynamic cards here if needed */}
-          {issueReports.map((issue, idx) => (
-            <IssueCard key={idx} />
+          {reports.map((issue, idx) => (
+            <IssueCard
+              key={idx}
+              title={issue.issueTitle}
+              image={issue.imageUrl}
+              category={issue.issueDepartment}
+              status={issue.issueStatus}
+            />
           ))}
         </div>
       </div>
