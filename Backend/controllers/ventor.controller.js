@@ -51,6 +51,7 @@ const createVendor = async (req, res) => {
 };
 
 const loginVendor = async (req, res) => {
+  console.log(req.body)
   const { phoneNo, password } = req.body;
   const phone = Number(phoneNo);
 
