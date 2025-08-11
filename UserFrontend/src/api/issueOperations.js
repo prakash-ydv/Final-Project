@@ -26,3 +26,13 @@ export async function reportIssue(
   console.log(data);
   return data;
 }
+
+export async function getMyReports() {
+  const res = await fetch("http://localhost:8080/user/myreports", {
+    method: "GET",
+    credentials: "include",
+  });
+  const data = await res.json();
+  return data;
+  console.log(data);
+}
