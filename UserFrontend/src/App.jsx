@@ -15,17 +15,17 @@ const router = createBrowserRouter([
   {
     path: "/myreports",
     element: (
-      // <ProtectedRoute>
+      <ProtectedRoute>
         <MyReports />
-      // </ProtectedRoute>
+      </ProtectedRoute>
     ),
   },
   {
     path: "/report",
     element: (
-      // <ProtectedRoute>
+      <ProtectedRoute>
         <ReportPage />
-      // </ProtectedRoute>
+      </ProtectedRoute>
     ),
   },
   {
