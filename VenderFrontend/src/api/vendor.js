@@ -25,6 +25,7 @@ export default async function loginVendor(phoneNo, password) {
     throw error;
   }
 }
+<<<<<<< HEAD
 
 export async function logOutVendor() {
   
@@ -36,3 +37,5 @@ export async function logOutVendor() {
   console.log(data);
   return data;
 }
+=======
+>>>>>>> ec42a5d7ebac66fbc8778aa9e668e47ce5866965

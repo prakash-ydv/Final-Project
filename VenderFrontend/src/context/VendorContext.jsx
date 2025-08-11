@@ -15,7 +15,11 @@ export function VendorProvider({ children }) {
 
   return (
     <VendorContext.Provider
+<<<<<<< HEAD
       value={{ vendor, updateVendor, setVendor, isLogedIn, setIsLogedIn }}
+=======
+      value={{ vendor, updateVendor, setVendor, setIsLogedIn }}
+>>>>>>> ec42a5d7ebac66fbc8778aa9e668e47ce5866965
     >
       {children}
     </VendorContext.Provider>
