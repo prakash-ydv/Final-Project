@@ -1,9 +1,8 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import DashBoard from "./pages/DashBoard";
 
-const router = createBrowserRouter([{ path: "/", element: <DashBoard /> }]);
+const router = createBrowserRouter([{ path: "/", element: <HomePage /> }]);
 
 function App() {
   return (
