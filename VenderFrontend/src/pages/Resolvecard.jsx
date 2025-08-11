@@ -34,13 +34,13 @@ function Card() {
       <div className="  border-2 rounded-lg px-[10px] md:px-[30px] py-[10px] pb-[40px] mt-6 w-[380px] ml-[5px] md:w-[400px]">
         {" "}
         <div className="mt-6">
-          <label htmlFor="department" className="block mb-2 font-semibold">
+          <label htmlFor="department" className="block mb-2 px-[5px] font-semibold">
             Status
           </label>
           <select
             id="department"
             name="department"
-            className="border rounded-lg px-3 py-2 md:w-[320px] w-[280px]"
+            className="border rounded-lg px-3 py-2 md:w-[320px] w-[350px]"
           >
             <option value="department1">Pending</option>
             <option value="department2">In-Progress</option>
