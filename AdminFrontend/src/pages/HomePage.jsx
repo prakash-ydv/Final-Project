@@ -9,8 +9,10 @@ import {
 } from "lucide-react";
 import RecentIssueCard from "../components/RecentIssueCard";
 import IssueMap from "../components/IssueMap";
+import { useAdmin } from "../context/AdminContext";
 
 function HomePage() {
+  const { allIssues } = useAdmin();
   const issues = [
     {
       id: "ISSUE001",
@@ -230,34 +232,23 @@ function HomePage() {
               placeholder="Search issues..."
               className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
-            <select className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
-              <option value="">Filter by Status</option>
-              <option value="Reported">Reported</option>
-              <option value="Assigned">Assigned</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Resolved">Resolved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <select className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
-              <option value="">Filter by Priority</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
           </div>
         </div>
 
+        {console.log(allIssues)}
+
         {/* Issues List */}
         <div className="bg-white rounded-lg overflow-hidden mt-4">
-          {recentIssues.map((issue, index) => (
+          {allIssues?.map((issue, index) => (
             <RecentIssueCard
               key={index}
               issueId={issue.issueId}
-              title={issue.title}
-              priority={issue.priority}
-              location={issue.location}
-              category={issue.category}
-              timeAgo={issue.timeAgo}
+              title={issue.issueTitle}
+              priority={"low"}
+              location={issue.issueAddress}
+              category={issue.issueDpartment}
+              status={issue.issueStatus}
+              description={issue.issueDesc}
             />
           ))}
         </div>

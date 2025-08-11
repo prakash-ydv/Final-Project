@@ -104,7 +104,7 @@ function RecentIssueCard({
                 <span className="capitalize">{getPriorityLabel(priority)}</span>
               </div>
               
-              <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[currentStatus].bg} ${statusColors[currentStatus].text}`}>
+              <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-400`}>
                 {/* <statusColors[currentStatus].icon className="w-3 h-3" /> */}
                 <span>{getStatusLabel(currentStatus)}</span>
               </div>
@@ -114,7 +114,6 @@ function RecentIssueCard({
                 <span className="truncate max-w-[120px]">{location}</span>
               </div>
               
-              <div className="text-xs text-gray-500">{timeAgo}</div>
             </div>
           </div>
           

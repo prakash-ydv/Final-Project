@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const User = require("../models/user.model");
+const { getAddressFromCoords } = require("../utils/getAddressFromCords");
+const { generateRandom5Digit } = require("../utils/generateId");
 SECRET_KEY = process.env.SECRET_KEY;
 
 // config
@@ -66,10 +68,12 @@ const reportIssue = async (req, res) => {
     fs.unlinkSync(filePath);
 
     const user = await User.findOne({ _id: decodedUser._id });
-
+    // get address
+    const issueAddress = await getAddressFromCoords(lat, lon);
+    const issueId = "P" + generateRandom5Digit();
     // 🧾 Step 6: Create and save issue to DB
     const issue = new Issue({
-      issueId: "ISSUE112", // TODO: generate dynamically
+      issueId,
       issueTitle,
       issueDepartment,
       reporterName: user.name,
@@ -77,6 +81,7 @@ const reportIssue = async (req, res) => {
       reporterPhone: user.phone,
       issueDesc,
       landmark,
+      issueAddress,
       issueCoordinates: {
         latitude: lat,
         longitude: lon,
@@ -150,7 +155,6 @@ const getAllIssues = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   reportIssue,

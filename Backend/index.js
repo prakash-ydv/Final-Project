@@ -27,11 +27,12 @@ const {
   logOutVendor,
 } = require("./controllers/ventor.controller");
 const { createDepartment } = require("./controllers/department.controller");
+const { getAddressFromCoords } = require("./utils/getAddressFromCords");
 
 // middle wares
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     credentials: true,
   })
 );

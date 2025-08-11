@@ -30,7 +30,7 @@ function NavBar() {
         {/* Desktop Nav */}
         <div className="hidden items-center justify-center md:flex gap-6 text-gray-700 text-sm font-medium">
           <span className="bg-gray-50 border border-gray-100 rounded-lg  p-2 font-semibold ">
-            City : Bhopal
+            City : Pune
           </span>
           {isLogedIn ? (
             <button
