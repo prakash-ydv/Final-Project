@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
 const bcrypt = require("bcrypt");
+const Issue = require("../models/issue.model");
 const saltRounds = 10;
 const secret_key = process.env.SECRET_KEY;
 
@@ -115,4 +116,32 @@ const logOutUser = async (req, res) => {
     res.status(500).json({ error: "Logout failed" });
   }
 };
-module.exports = { createUser, loginUser, logOutUser };
+
+// get report details
+
+async function myReportsDetails(req, res) {
+  try {
+    const token = req.cookies?.token;
+    if (!token) return res.json({ failed: "Need login first" });
+
+    const user = jwt.verify(token, secret_key); // contains _id, phone
+    const userDetails = await User.findById(user._id);
+
+    if (!userDetails) {
+      return res.status(404).json({ failed: "User not found" });
+    }
+
+    // Get issue IDs from the user
+    const issueIds = userDetails.issueReported;
+
+    // Fetch the issues using $in
+    const issues = await Issue.find({ _id: { $in: issueIds } });
+
+    res.json({ success: true, issues });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ failed: "Server error" });
+  }
+}
+
+module.exports = { createUser, loginUser, logOutUser, myReportsDetails };
