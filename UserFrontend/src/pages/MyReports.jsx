@@ -2,53 +2,53 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import IssueCard from "../components/IssueCard";
 import Footer from "../components/Footer";
+import { getMyReports } from "../api/issueOperations";
+import { useUser } from "../context/UserContext";
 
 function MyReports() {
-  const [user, setUser] = useState(null);
-  const [stats, setStats] = useState(null);
+  const { isLogedIn } = useUser();
   const [reports, setReports] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [inProgress, setInProgress] = useState(0);
+  const [resolved, setResolved] = useState(0);
+  const [rejected, setRejected] = useState(0);
 
   useEffect(() => {
-    // Simulated data (Replace with real API calls)
-    const fetchData = async () => {
-      setUser({
-        name: "Golu Kumar",
-        email: "golu@example.com",
-        phone: "9876543210",
-        city: "Bhopal",
-      });
+    async function fetchData() {
+      try {
+        const data = await getMyReports();
 
-      setStats({
-        total: 12,
-        pending: 4,
-        completed: 7,
-        rejected: 1,
-      });
+        if (data?.success && Array.isArray(data.issues)) {
+          console.log(data);
 
-      setReports([
-        {
-          title: "Pothole near Sector 7",
-          category: "Pothole",
-          status: "Pending",
-          date: "2025-08-01",
-        },
-        {
-          title: "Overflowing Garbage in Road",
-          category: "Garbage",
-          status: "Completed",
-          date: "2025-07-29",
-        },
-        {
-          title: "Streetlight Not Working",
-          category: "Streetlight",
-          status: "Rejected",
-          date: "2025-07-25",
-        },
-      ]);
-    };
+          const totalIssues = data.issues.length;
+          const inProgressCount = data.issues.filter(
+            issue => issue.issueStatus === "in-progress"
+          ).length;
+          const resolvedCount = data.issues.filter(
+            issue => issue.issueStatus === "resolved"
+          ).length;
+          const rejectedCount = data.issues.filter(
+            issue => issue.issueStatus === "rejected"
+          ).length;
 
-    fetchData();
-  }, []);
+          setTotal(totalIssues);
+          setInProgress(inProgressCount);
+          setResolved(resolvedCount);
+          setRejected(rejectedCount);
+          setReports(data.issues);
+        } else {
+          console.log("Data not found or success false", data);
+        }
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    }
+
+    if (isLogedIn) {
+      fetchData();
+    }
+  }, [isLogedIn]);
 
   return (
     <>
@@ -56,44 +56,30 @@ function MyReports() {
       <div className="min-h-screen bg-gray-100 px-5 lg:px-10">
         <div className="mx-auto space-y-8">
           {/* Stats Section */}
-          {stats && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
-              <StatCard
-                title="Total Reports"
-                value={stats.total}
-                color="bg-blue-500"
-              />
-              <StatCard
-                title="Pending"
-                value={stats.pending}
-                color="bg-yellow-500"
-              />
-              <StatCard
-                title="Completed"
-                value={stats.completed}
-                color="bg-green-500"
-              />
-              <StatCard
-                title="Rejected"
-                value={stats.rejected}
-                color="bg-red-500"
-              />
-            </div>
-          )}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
+            <StatCard title="Total Reports" value={total} color="bg-blue-500" />
+            <StatCard
+              title="In-Progress"
+              value={inProgress}
+              color="bg-yellow-500"
+            />
+            <StatCard title="Resolved" value={resolved} color="bg-green-500" />
+            <StatCard title="Rejected" value={rejected} color="bg-red-500" />
+          </div>
 
           {/* Reports List */}
-
-          <div className="bg-white p-5 rounded-xl ">
+          <div className="bg-white p-5 rounded-xl">
             <h2 className="text-2xl font-bold text-blue-600 mb-4">
               Your Reports
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
-              <IssueCard />
+              {reports.length > 0 ? (
+                reports.map((report, index) => (
+                  <IssueCard key={index} issue={report} />
+                ))
+              ) : (
+                <p>No reports found</p>
+              )}
             </div>
           </div>
         </div>
@@ -113,19 +99,6 @@ function StatCard({ title, value, color }) {
       <p className="text-3xl font-bold">{value}</p>
     </div>
   );
-}
-
-function getStatusColor(status) {
-  switch (status) {
-    case "Pending":
-      return "bg-yellow-100 text-yellow-800";
-    case "Completed":
-      return "bg-green-100 text-green-800";
-    case "Rejected":
-      return "bg-red-100 text-red-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
 }
 
 export default MyReports;

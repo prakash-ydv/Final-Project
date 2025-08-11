@@ -37,6 +37,11 @@ const issueSchema = new mongoose.Schema(
       latitude: { type: Number, required: true },
       longitude: { type: Number, required: true },
     },
+    issueStatus: {
+      type: String,
+      default: "pending",
+      lowercase : true
+    },
 
     imageUrl: {
       type: String,

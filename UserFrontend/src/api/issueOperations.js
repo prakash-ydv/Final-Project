@@ -33,5 +33,6 @@ export async function getMyReports() {
     credentials: "include",
   });
   const data = await res.json();
+  return data;
   console.log(data);
 }
