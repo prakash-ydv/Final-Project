@@ -2,6 +2,7 @@ import React from "react";
 import DashBoardBox from "../components/DashBoardBox";
 import NavBar from "../components/NavBar";
 import DashBoardIssueCard from "../components/DashBoardIssueCard";
+import Footer from "../components/Footer";
 
 function HomePage() {
   return (
@@ -21,6 +22,8 @@ function HomePage() {
         <DashBoardIssueCard />
         <DashBoardIssueCard />
       </section>
+
+      <Footer />
     </>
   );
 }
