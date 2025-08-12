@@ -195,10 +195,41 @@ const getOneIssueByParam = async (req, res) => {
   }
 };
 
+const updateIssueStatus = async (req, res) => {
+  const { issueId, status } = req.body;
+
+  if (!issueId || !status) {
+    return res.status(400).json({ error: "issueId and status are required" });
+  }
+
+  try {
+    // Update the issue status field
+    const updatedIssue = await Issue.findOneAndUpdate(
+      { issueId },
+      { $set: { status } }, // Assuming your Issue schema has a 'status' field
+      { new: true }
+    );
+
+    if (!updatedIssue) {
+      return res.status(404).json({ error: "Issue not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Status updated successfully",
+      updatedIssue,
+    });
+  } catch (error) {
+    console.error("Error updating issue status:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   reportIssue,
   findIssue,
   getAllIssues,
   getAllGarbageIssues,
   getOneIssueByParam,
+  updateIssueStatus,
 };

@@ -1,20 +1,41 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function UpdateStatus({ currentStatus = "Pending", onUpdate }) {
   const [status, setStatus] = useState(currentStatus);
-  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [buttonText, setButtonText] = useState("Update Status");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (status === "Resolved" && !imageFile) {
+      alert("Please upload an image to mark issue as Resolved.");
+      return;
+    }
+
     if (onUpdate) {
-      onUpdate({ status, image });
+      setIsSubmitting(true);
+      setButtonText("Updating...");
+
+      try {
+        // Wait for the parent's onUpdate to finish
+        await onUpdate({ status, imageFile });
+      } catch (error) {
+        alert("Failed to update status: " + error.message);
+      } finally {
+        setIsSubmitting(false);
+        setButtonText("Update Status");
+      }
     }
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      setImageFile(file);
+      setPreview(URL.createObjectURL(file)); // preview URL
     }
   };
 
@@ -29,6 +50,7 @@ function UpdateStatus({ currentStatus = "Pending", onUpdate }) {
           value={status}
           onChange={(e) => setStatus(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 text-sm sm:text-base"
+          disabled={isSubmitting}
         >
           <option value="Pending">Pending</option>
           <option value="In-Progress">In-Progress</option>
@@ -36,7 +58,6 @@ function UpdateStatus({ currentStatus = "Pending", onUpdate }) {
           <option value="Rejected">Rejected</option>
         </select>
 
-        {/* Show image upload only if status is Completed */}
         {status === "Resolved" && (
           <div className="border border-dotted border-gray-400 rounded-lg h-42 flex flex-col items-center justify-center relative overflow-hidden">
             <input
@@ -46,16 +67,17 @@ function UpdateStatus({ currentStatus = "Pending", onUpdate }) {
               capture="environment"
               onChange={handleImageChange}
               className="opacity-0 h-full w-full absolute cursor-pointer"
+              disabled={isSubmitting}
             />
-            {image ? (
+            {preview ? (
               <img
-                src={image}
+                src={preview}
                 alt="Preview"
                 className="h-full w-full object-cover"
               />
             ) : (
               <span className="text-gray-500 text-sm text-center px-2">
-                Click or Drag & Drop to upload a picture of the same place
+                Click picture from same angle
               </span>
             )}
           </div>
@@ -63,9 +85,14 @@ function UpdateStatus({ currentStatus = "Pending", onUpdate }) {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-sm sm:text-base"
+          disabled={isSubmitting}
+          className={`w-full py-2 rounded-lg text-sm sm:text-base transition ${
+            isSubmitting
+              ? "bg-blue-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+          }`}
         >
-          Update Status
+          {buttonText}
         </button>
       </form>
     </div>

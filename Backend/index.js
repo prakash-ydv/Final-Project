@@ -21,6 +21,7 @@ const {
   getAllGarbageIssues,
   getOneIssue,
   getOneIssueByParam,
+  updateIssueStatus,
 } = require("./controllers/issue.controller");
 const { loginAdmin } = require("./controllers/admin.controller");
 const verifyToken = require("./middlewares/verify.token");
@@ -107,12 +108,14 @@ app.get("/user/logout", logOutUser);
 // admin routes
 app.get("/admin/login", loginAdmin);
 
-// main action routes
+// issue routes
 app.post("/issue/report", upload.single("image"), reportIssue);
 app.post("/issue/find", findIssue);
 app.get("/user/myreports", myReportsDetails);
 app.get("/issues/getall", getAllIssues);
 app.get("/issue/:issueId", getOneIssueByParam);
+app.put('/issue/status/update', updateIssueStatus);
+
 
 //vendor routes
 app.post("/vendor/register", createVendor);
