@@ -33,7 +33,11 @@ const User = require("./models/user.model");
 // middle wares
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:5175",
+    ],
     credentials: true,
   })
 );
@@ -67,7 +71,9 @@ app.post("/user/verify-otp", async (req, res) => {
     const isValid = verifyOTP(email, otp);
 
     if (!isValid) {
-      return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired OTP" });
     }
 
     // OTP valid, update user
@@ -78,7 +84,9 @@ app.post("/user/verify-otp", async (req, res) => {
     );
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     res.json({ success: true, message: "OTP verified", user });

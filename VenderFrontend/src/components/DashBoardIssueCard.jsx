@@ -1,8 +1,13 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function DashBoardIssueCard() {
+  const { navigate } = useNavigate();
   return (
-    <div className="flex gap-3 border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition duration-300">
+    <div
+      onClick={Navigate("/issue")}
+      className="flex gap-3 border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition duration-300"
+    >
       {/* Image Section */}
       <div className="w-24 h-24 flex-shrink-0">
         <img

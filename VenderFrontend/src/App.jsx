@@ -7,22 +7,29 @@ import LoginPage from "./pages/LoginPage";
 import ProtectedRoute from "./security/ProtectedRoute";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
+  {
+    path: "/",
+    element: (
+      // <ProtectedRoute>
+        <HomePage />
+      // </ProtectedRoute>
+    ),
+  },
   { path: "/login", element: <LoginPage /> },
   {
     path: "/issue",
     element: (
-      <ProtectedRoute>
+      // <ProtectedRoute>
         <IssuePage />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
   },
   {
     path: "/works",
     element: (
-      <ProtectedRoute>
+      // <ProtectedRoute>
         <RecentWorks />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
   },
 ]);
