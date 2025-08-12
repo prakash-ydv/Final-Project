@@ -19,6 +19,8 @@ const {
   findIssue,
   getAllIssues,
   getAllGarbageIssues,
+  getOneIssue,
+  getOneIssueByParam,
 } = require("./controllers/issue.controller");
 const { loginAdmin } = require("./controllers/admin.controller");
 const verifyToken = require("./middlewares/verify.token");
@@ -110,6 +112,7 @@ app.post("/issue/report", upload.single("image"), reportIssue);
 app.post("/issue/find", findIssue);
 app.get("/user/myreports", myReportsDetails);
 app.get("/issues/getall", getAllIssues);
+app.get("/issue/:issueId", getOneIssueByParam);
 
 //vendor routes
 app.post("/vendor/register", createVendor);
@@ -118,7 +121,7 @@ app.get("/vendor/logout", logOutVendor);
 
 // department
 app.post("/department/register", createDepartment);
-app.get("/issues/garbage/all" , getAllGarbageIssues)
+app.get("/issues/garbage/all", getAllGarbageIssues);
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {

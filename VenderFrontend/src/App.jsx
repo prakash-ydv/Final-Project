@@ -11,16 +11,16 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       // <ProtectedRoute>
-        <HomePage />
+      <HomePage />
       // </ProtectedRoute>
     ),
   },
   { path: "/login", element: <LoginPage /> },
   {
-    path: "/issue",
+    path: "/issue/:issueId",
     element: (
       // <ProtectedRoute>
-        <IssuePage />
+      <IssuePage />
       // </ProtectedRoute>
     ),
   },
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     path: "/works",
     element: (
       // <ProtectedRoute>
-        <RecentWorks />
+      <RecentWorks />
       // </ProtectedRoute>
     ),
   },
