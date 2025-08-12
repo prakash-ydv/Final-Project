@@ -156,8 +156,33 @@ const getAllIssues = async (req, res) => {
   }
 };
 
+const getAllGarbageIssues = async (req, res) => {
+  try {
+    const garbageIssues = await Issue.find({ issueDepartment: "Garbage" }).sort(
+      { createdAt: -1 }
+    );
+
+    if (!garbageIssues || garbageIssues.length === 0) {
+      return res.status(404).json({ error: "No garbage issues found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      count: garbageIssues.length,
+      data: garbageIssues,
+    });
+  } catch (err) {
+    console.error("Error fetching garbage issues:", err.message);
+    return res.status(500).json({
+      error: "Failed to fetch garbage issues",
+      details: err.message,
+    });
+  }
+};
+
 module.exports = {
   reportIssue,
   findIssue,
   getAllIssues,
+  getAllGarbageIssues
 };

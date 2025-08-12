@@ -18,6 +18,7 @@ const {
   reportIssue,
   findIssue,
   getAllIssues,
+  getAllGarbageIssues,
 } = require("./controllers/issue.controller");
 const { loginAdmin } = require("./controllers/admin.controller");
 const verifyToken = require("./middlewares/verify.token");
@@ -117,6 +118,7 @@ app.get("/vendor/logout", logOutVendor);
 
 // department
 app.post("/department/register", createDepartment);
+app.get("/issues/garbage/all" , getAllGarbageIssues)
 
 const PORT = process.env.PORT;
 app.listen(8080, () => {
