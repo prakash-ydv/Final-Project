@@ -36,8 +36,3 @@ export async function logOutVendor() {
   console.log(data);
   return data;
 }
-
-
-export async function getGarbageIssues(params) {
-  
-}
