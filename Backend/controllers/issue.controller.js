@@ -180,9 +180,25 @@ const getAllGarbageIssues = async (req, res) => {
   }
 };
 
+const getOneIssueByParam = async (req, res) => {
+  const { issueId } = req.params;
+
+  if (!issueId) return res.status(400).json({ error: "Issue ID required" });
+
+  try {
+    const issue = await Issue.findOne({ issueId });
+    if (!issue) return res.status(404).json({ error: "Issue not found" });
+
+    return res.status(200).json({ success: true, data: issue });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   reportIssue,
   findIssue,
   getAllIssues,
-  getAllGarbageIssues
+  getAllGarbageIssues,
+  getOneIssueByParam,
 };

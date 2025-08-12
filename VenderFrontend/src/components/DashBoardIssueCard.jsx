@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getOneIssue } from "../api/getIssueById";
 
 function DashBoardIssueCard(props) {
   const [issueId, setIssueId] = useState(props.issueId || null);
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function handleGetIssue() {
+      const data = await getOneIssue(issueId);
+      if (data.success) {
+        setData(data.data);
+        console.log("Data saved to component");
+      }
+    }
+
+    handleGetIssue();
+  },[]);
 
   return (
     <div
-      onClick={() => navigate("/issue")}
+      onClick={() => navigate(`/issue/${props.issueId}`)}
       className="flex gap-3 border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition duration-300 cursor-pointer"
     >
       {/* Image Section */}
