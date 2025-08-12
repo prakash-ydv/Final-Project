@@ -90,6 +90,7 @@ const loginUser = async (req, res) => {
             email: data.email,
             issueReported: data.issueReported,
             city: data.city,
+            isVerified: data.isVerified,
           },
         });
     } else {

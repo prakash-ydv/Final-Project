@@ -28,6 +28,7 @@ const {
 } = require("./controllers/ventor.controller");
 const { createDepartment } = require("./controllers/department.controller");
 const { sendOTP, verifyOTP } = require("./controllers/auth.controllers");
+const User = require("./models/user.model");
 
 // middle wares
 app.use(
@@ -60,16 +61,33 @@ app.post("/user/send-otp", async (req, res) => {
   res.json({ success: true, message: "OTP sent successfully" });
 });
 
-app.post("/user/verify-otp", (req, res) => {
-  console.log(req.body);
-  const { email, otp } = req.body;
-  const isValid = verifyOTP(email, otp);
-  if (isValid) {
-    res.json({ success: true, message: "OTP verified" });
-  } else {
-    res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+app.post("/user/verify-otp", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const isValid = verifyOTP(email, otp);
+
+    if (!isValid) {
+      return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+    }
+
+    // OTP valid, update user
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { isVerified: true } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, message: "OTP verified", user });
+  } catch (err) {
+    console.error("Verify OTP error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
+
 // user routes
 app.post("/user/register", createUser);
 app.post("/user/login", loginUser);
