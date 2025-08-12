@@ -249,6 +249,9 @@ function HomePage() {
               category={issue.issueDpartment}
               status={issue.issueStatus}
               description={issue.issueDesc}
+              name={issue.reporterName}
+              assignedTo={issue.issueDepartment}
+              reporterContact={issue.reporterPhone || "NA"}
             />
           ))}
         </div>
