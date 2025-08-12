@@ -27,7 +27,7 @@ const {
   logOutVendor,
 } = require("./controllers/ventor.controller");
 const { createDepartment } = require("./controllers/department.controller");
-const { getAddressFromCoords } = require("./utils/getAddressFromCords");
+const { sendOTP, verifyOTP } = require("./controllers/auth.controllers");
 
 // middle wares
 app.use(
@@ -48,6 +48,28 @@ connectToDB(DB_URL);
 app.get("/", testRoute);
 app.post("/", verifyToken, verifyLogin);
 
+// auth (OTP)
+// send mail
+app.post("/user/send-otp", async (req, res) => {
+  const { email } = req.body;
+  if (!email)
+    return res.json({
+      failed: "no email found",
+    });
+  await sendOTP(email);
+  res.json({ success: true, message: "OTP sent successfully" });
+});
+
+app.post("/user/verify-otp", (req, res) => {
+  console.log(req.body);
+  const { email, otp } = req.body;
+  const isValid = verifyOTP(email, otp);
+  if (isValid) {
+    res.json({ success: true, message: "OTP verified" });
+  } else {
+    res.status(400).json({ success: false, message: "Invalid or expired OTP" });
+  }
+});
 // user routes
 app.post("/user/register", createUser);
 app.post("/user/login", loginUser);
